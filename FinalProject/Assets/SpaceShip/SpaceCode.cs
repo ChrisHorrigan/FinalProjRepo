@@ -51,34 +51,35 @@ public class SpaceCode : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (networkView.isMine) {
+			if (Input.GetKey(KeyCode.I)) {
+				speed += 3f * Time.deltaTime;
+			}
+			if (Input.GetKey(KeyCode.K)) {
+				speed -= 3f * Time.deltaTime;
+			}
+			if (Input.GetKey(KeyCode.L)) {
+				curvature += Time.deltaTime * curvatureMod;
+			}
+			if (Input.GetKey(KeyCode.J)) {
+				curvature -= Time.deltaTime * curvatureMod;
+			}
+			if (Input.GetKey(KeyCode.W)) {
+				lift += Time.deltaTime * liftMod;
+			}
+			if (Input.GetKey(KeyCode.S)) {
+				lift -= Time.deltaTime * liftMod;
+			}
+			if (Input.GetKey(KeyCode.A)) {
+				torsion += Time.deltaTime * torsionMod;
+			}
+			if (Input.GetKey(KeyCode.D)) {
+				torsion -= Time.deltaTime * torsionMod;
+			}
 
-		if (Input.GetKey(KeyCode.I)) {
-			speed += 3f * Time.deltaTime;
-		}
-		if (Input.GetKey(KeyCode.K)) {
-			speed -= 3f * Time.deltaTime;
-		}
-		if (Input.GetKey(KeyCode.L)) {
-			curvature += Time.deltaTime * curvatureMod;
-		}
-		if (Input.GetKey(KeyCode.J)) {
-			curvature -= Time.deltaTime * curvatureMod;
-		}
-		if (Input.GetKey(KeyCode.W)) {
-			lift += Time.deltaTime * liftMod;
-		}
-		if (Input.GetKey(KeyCode.S)) {
-			lift -= Time.deltaTime * liftMod;
-		}
-		if (Input.GetKey(KeyCode.A)) {
-			torsion += Time.deltaTime * torsionMod;
-		}
-		if (Input.GetKey(KeyCode.D)) {
-			torsion -= Time.deltaTime * torsionMod;
-		}
-
-		if (Input.GetKey(KeyCode.N)) {
-			throttle += Time.deltaTime * throttleMod;
+			if (Input.GetKey(KeyCode.N)) {
+				throttle += Time.deltaTime * throttleMod;
+			}
 		}
 
 		//phi += theta * Time.deltaTime * .1f;
