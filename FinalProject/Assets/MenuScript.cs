@@ -29,7 +29,8 @@ public class MenuScript : MonoBehaviour {
 					playClicked=false;
 					Network.Connect(connectionIP, connectionPort); //change serverIP to localhostIP for testing on same computer
 					if(Network.peerType == NetworkPeerType.Client)
-					Application.LoadLevel(2);
+						;
+					//Application.LoadLevel(2);
 										//connects to server
 								}
 								if(GUI.Button(new Rect (350, 10, 170, 30), "Host Game>>>")){
