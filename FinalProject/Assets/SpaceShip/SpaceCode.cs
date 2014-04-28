@@ -28,6 +28,9 @@ public class SpaceCode : MonoBehaviour {
 	private Vector3 newPos;
 	// Use this for initialization
 	void Start () {
+
+		Network.Instantiate(this.transform, transform.position, transform.rotation, 0);
+
 		speed = 0;
 		//phi = 0;
 		//theta = Mathf.PI / 2;
