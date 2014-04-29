@@ -24,9 +24,9 @@ public class AsteroidGenorator : MonoBehaviour {
 
 	private void createAsteroids() {
 		Transform temp = (Transform) Instantiate(genericAsteroid);
-		float x = GameObject.Find("SpaceShip").transform.localPosition.x + Random.Range(-10f, 10f);
-		float y = GameObject.Find("SpaceShip").transform.localPosition.y + Random.Range(-10f, 10f);
-		float z = GameObject.Find("SpaceShip").transform.localPosition.z + Random.Range(-10f, 10f);
+		float x = this.transform.localPosition.x + Random.Range(-10f, 10f);
+		float y = this.transform.localPosition.y + Random.Range(-10f, 10f);
+		float z = this.transform.localPosition.z + Random.Range(-10f, 10f);
 		temp.localPosition = new Vector3(x, y, z);
 
 	}
