@@ -29,7 +29,7 @@ public class SpaceCode : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		Network.Instantiate(this.transform, transform.position, transform.rotation, 0);
+
 
 		speed = 0;
 		//phi = 0;
@@ -83,6 +83,8 @@ public class SpaceCode : MonoBehaviour {
 			if (Input.GetKey(KeyCode.N)) {
 				throttle += Time.deltaTime * throttleMod;
 			}
+		} else {
+			camera.enabled = false;
 		}
 
 		//phi += theta * Time.deltaTime * .1f;
