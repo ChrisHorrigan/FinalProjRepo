@@ -15,7 +15,7 @@ public class AsteroidGenorator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		currentTime += Time.deltaTime;
-		if (currentTime > .1f) {
+		if (currentTime > 4f) {
 			createAsteroids();
 			currentTime = 0f;
 		}
