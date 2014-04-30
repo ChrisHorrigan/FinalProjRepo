@@ -15,7 +15,9 @@ public class SpaceshipCreator : MonoBehaviour {
 	}
 
 	void OnConnectedToServer() {
-		Network.Instantiate(spaceship, transform.position, transform.rotation, 0);
+		Transform tempShip = Network.Instantiate(spaceship, transform.position, transform.rotation, 0) as Transform;
+		//Network.Instantiate(spaceship, transform.position, transform.rotation, 0);
+		Camera.main.transform.parent = tempShip.transform;
 	}
 	
 	// Update is called once per frame
