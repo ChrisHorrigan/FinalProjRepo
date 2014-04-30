@@ -8,9 +8,9 @@ public class SpaceshipCreator : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		if(Network.isServer) {
-			//GameObject tempShip = Network.Instantiate(spaceship, transform.position, transform.rotation, 0) as GameObject;
-			Network.Instantiate(spaceship, transform.position, transform.rotation, 0);
-			//Camera.main.transform.parent = tempShip.transform;
+			Transform tempShip = Network.Instantiate(spaceship, transform.position, transform.rotation, 0) as Transform;
+			//Network.Instantiate(spaceship, transform.position, transform.rotation, 0);
+			Camera.main.transform.parent = tempShip.transform;
 		}
 	}
 

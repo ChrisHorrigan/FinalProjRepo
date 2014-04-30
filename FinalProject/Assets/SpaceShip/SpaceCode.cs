@@ -83,10 +83,7 @@ public class SpaceCode : MonoBehaviour {
 			if (Input.GetKey(KeyCode.N)) {
 				throttle += Time.deltaTime * throttleMod;
 			}
-			camera.enabled = false;
-		} else {
-			//camera.enabled = false;
-		}
+		} 
 
 		//phi += theta * Time.deltaTime * .1f;
 
