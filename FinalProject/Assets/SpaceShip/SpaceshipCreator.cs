@@ -4,6 +4,7 @@ using System.Collections;
 public class SpaceshipCreator : MonoBehaviour {
 
 	public Transform spaceship;
+	public Transform planet;
 
 	// Use this for initialization
 	void Start () {
@@ -11,6 +12,10 @@ public class SpaceshipCreator : MonoBehaviour {
 			Transform tempShip = Network.Instantiate(spaceship, transform.position, transform.rotation, 0) as Transform;
 			//Network.Instantiate(spaceship, transform.position, transform.rotation, 0);
 			Camera.main.transform.parent = tempShip.transform;
+
+			Network.Instantiate(planet, new Vector3(1100, 0, 0), transform.rotation, 0);
+
+
 		}
 	}
 
