@@ -13,7 +13,7 @@ public class SpaceshipCreator : MonoBehaviour {
 			//Network.Instantiate(spaceship, transform.position, transform.rotation, 0);
 			Camera.main.transform.parent = tempShip.transform;
 
-			Network.Instantiate(planet, new Vector3(1100, 0, 0), transform.rotation, 0);
+			Network.Instantiate(planet, new Vector3(1000, 0, 0), transform.rotation, 0);
 
 
 		}

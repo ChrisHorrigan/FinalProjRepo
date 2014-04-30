@@ -83,7 +83,7 @@ public class SpaceCode : MonoBehaviour {
 			if (Input.GetKey(KeyCode.N)) {
 				throttle += Time.deltaTime * throttleMod;
 			}
-		} 
+		
 
 		//phi += theta * Time.deltaTime * .1f;
 
@@ -161,9 +161,9 @@ public class SpaceCode : MonoBehaviour {
 
 		transform.rotation = Quaternion.LookRotation (newForward, newUp);
 
+		}
 
-
-		if (Input.GetKeyDown(KeyCode.Space)) {
+		if (Input.GetKeyDown(KeyCode.Space) && networkView.isMine) {
 			Transform temp = (Transform) GameObject.Instantiate(Lazer);
 			temp.localPosition = this.transform.localPosition;
 			temp.localRotation = this.transform.localRotation;
