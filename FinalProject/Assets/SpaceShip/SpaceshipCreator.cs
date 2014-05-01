@@ -12,7 +12,8 @@ public class SpaceshipCreator : MonoBehaviour {
 			Transform tempShip = Network.Instantiate(spaceship, transform.position, transform.rotation, 0) as Transform;
 			//Network.Instantiate(spaceship, transform.position, transform.rotation, 0);
 			Camera.main.transform.parent = tempShip.transform;
-			string playername=GetName ();
+		
+			tempShip.GetComponent<SpaceCode>().sendName(GetName ());
 			Network.Instantiate(planet, new Vector3(1000, 0, 0), transform.rotation, 0);
 		}
 
@@ -25,7 +26,7 @@ public class SpaceshipCreator : MonoBehaviour {
 		Transform tempShip = Network.Instantiate(spaceship, transform.position, transform.rotation, 0) as Transform;
 		//Network.Instantiate(spaceship, transform.position, transform.rotation, 0);
 		Camera.main.transform.parent = tempShip.transform;
-		string playername=GetName ();
+		tempShip.GetComponent<SpaceCode>().sendName(GetName ());
 	}
 	void OnDisconnectedFromServer(){
 		Application.LoadLevel (0);

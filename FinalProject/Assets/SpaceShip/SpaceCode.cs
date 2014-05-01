@@ -51,7 +51,14 @@ public class SpaceCode : MonoBehaviour {
 
 		newPos = new Vector3(0f, 0f, 0f);
 	}
-	
+	[RPC]
+	void setName(string name){
+		TextMesh mesh = this.GetComponentInChildren<TextMesh> ();
+		mesh.text = name;
+		}
+	public void sendName(string n){
+		networkView.RPC ("setName", RPCMode.AllBuffered, n);
+		}
 	// Update is called once per frame
 	void Update () {
 		if (networkView.isMine) {
