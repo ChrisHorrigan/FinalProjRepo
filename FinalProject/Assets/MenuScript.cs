@@ -73,6 +73,9 @@ public class MenuScript : MonoBehaviour {
 			}
 		}
 		}
+	public string getName(){
+		return playerName;
+		}
 	// Update is called once per frame
 	void Update () {
 	

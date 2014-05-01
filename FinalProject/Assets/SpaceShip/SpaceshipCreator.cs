@@ -12,21 +12,32 @@ public class SpaceshipCreator : MonoBehaviour {
 			Transform tempShip = Network.Instantiate(spaceship, transform.position, transform.rotation, 0) as Transform;
 			//Network.Instantiate(spaceship, transform.position, transform.rotation, 0);
 			Camera.main.transform.parent = tempShip.transform;
-
+			string playername=GetName ();
 			Network.Instantiate(planet, new Vector3(1000, 0, 0), transform.rotation, 0);
-
-
 		}
+
+
+
+
 	}
 
 	void OnConnectedToServer() {
 		Transform tempShip = Network.Instantiate(spaceship, transform.position, transform.rotation, 0) as Transform;
 		//Network.Instantiate(spaceship, transform.position, transform.rotation, 0);
 		Camera.main.transform.parent = tempShip.transform;
+		string playername=GetName ();
 	}
-	
+	void OnDisconnectedFromServer(){
+		Application.LoadLevel (0);
+		}
 	// Update is called once per frame
 	void Update () {
 	
 	}
+	string GetName(){
+		MenuScript menuInstance=GameObject.Find ("MenuManager").GetComponent<MenuScript>();
+		string name = menuInstance.getName ();
+		return name;
+		}
+	           
 }
