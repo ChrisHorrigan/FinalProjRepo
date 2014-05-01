@@ -164,9 +164,15 @@ public class SpaceCode : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown(KeyCode.Space) && networkView.isMine) {
-			Transform temp = (Transform) GameObject.Instantiate(Lazer);
-			temp.localPosition = this.transform.localPosition;
-			temp.localRotation = this.transform.localRotation;
+			Transform temp1 = (Transform) GameObject.Instantiate(Lazer);
+			temp1.localPosition = this.transform.localPosition + newRight * this.transform.localScale.x / 2f + newUp * this.transform.localScale.y / 2f;
+			temp1.localRotation = this.transform.localRotation;
+			temp1.GetComponent<LazerCode>().setForwardVector(newForward);
+
+			Transform temp2 = (Transform) GameObject.Instantiate(Lazer);
+			temp2.localPosition = this.transform.localPosition + newRight * this.transform.localScale.x / -2f + newUp * this.transform.localScale.y / 2f;
+			temp2.localRotation = this.transform.localRotation;
+			temp2.GetComponent<LazerCode>().setForwardVector(newForward);
 		}
 
 
