@@ -16,15 +16,15 @@ public class SpaceCode : MonoBehaviour {
 
 	private float throttle;
 	private float throttleMod;
-
+	private GUIStyle nameplate;
 	private float curvatureMod;
 	private float torsionMod;
 	private float liftMod;
-
+	private Vector3 namePlatePos;
 	private Vector3 newForward;
 	private Vector3 newRight;
 	private Vector3 newUp;
-
+	private string playaName;
 	private Vector3 newPos;
 	// Use this for initialization
 	void Start () {
@@ -51,10 +51,16 @@ public class SpaceCode : MonoBehaviour {
 
 		newPos = new Vector3(0f, 0f, 0f);
 	}
+	void OnGUI() {
+		// Place the name plate where the gameObject (player prefab) is
+		namePlatePos = Camera.main.WorldToScreenPoint(gameObject.transform.position);  
+		GUI.Label(new Rect(((float)namePlatePos.x-75f), ((float)Screen.height - namePlatePos.y-40f), 100, 50), playaName);  
+	}
 	[RPC]
 	void setName(string name){
-		TextMesh mesh = this.GetComponentInChildren<TextMesh> ();
-		mesh.text = name;
+		//TextMesh mesh = this.GetComponentInChildren<TextMesh> ();
+		//mesh.text = name;
+		playaName = name;
 		}
 	public void sendName(string n){
 		networkView.RPC ("setName", RPCMode.AllBuffered, n);
