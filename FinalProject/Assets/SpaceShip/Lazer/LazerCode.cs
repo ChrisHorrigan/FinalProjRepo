@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class LazerCode : MonoBehaviour {
@@ -12,7 +12,7 @@ public class LazerCode : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		this.GetComponent<CharacterController>().Move(20f * Time.deltaTime * this.transform.forward);
+		this.GetComponent<CharacterController>().Move(100f * Time.deltaTime * this.transform.forward);
 
 		timeLeft -= Time.deltaTime;
 		if(timeLeft < 0f) {
