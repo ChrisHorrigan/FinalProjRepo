@@ -22,10 +22,6 @@ public class SpaceshipCreator : MonoBehaviour {
 			Network.Instantiate(planet, new Vector3(1000, 0, 0), transform.rotation, 0);
 			Network.Instantiate(flag1, new Vector3(0, 0, 10), transform.rotation, 0);
 		}
-
-	
-
-
 	}
 	[RPC]
 	void Initialize(){
@@ -63,6 +59,10 @@ public class SpaceshipCreator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+	void OnPlayerDisconnected(NetworkPlayer player) {
+		Network.RemoveRPCs(player);
+		Network.DestroyPlayerObjects(player);
 	}
 	string GetName(){
 
