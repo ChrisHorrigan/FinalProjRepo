@@ -71,6 +71,14 @@ public class MenuScript : MonoBehaviour {
 				Network.Disconnect(200);
 				Application.LoadLevel(0);
 			}
+			//if(Application.loadedLevel==1){
+			if (!SpaceshipCreator.gameOn){//consider variable replacement later
+				if(GUI.Button(new Rect(10, 70, 170, 30), "Start match")){
+					GameObject.Find("GameManager").GetComponent<SpaceshipCreator>().RoundStart();
+						//!GameObject.Find("GameManager").GetComponent<SpaceshipCreator>().gameOn
+				}
+			}
+			//}
 		}
 		}
 	public string getName(){
