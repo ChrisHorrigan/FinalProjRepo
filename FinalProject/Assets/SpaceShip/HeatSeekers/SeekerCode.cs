@@ -3,6 +3,7 @@ using System.Collections;
 
 public class SeekerCode : MonoBehaviour {
 
+	PathFinder pathFinder = new PathFinder();
 	// Use this for initialization
 	void Start () {
 	

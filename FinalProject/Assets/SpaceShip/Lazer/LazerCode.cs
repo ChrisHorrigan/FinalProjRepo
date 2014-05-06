@@ -7,7 +7,7 @@ public class LazerCode : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		timeLeft = 15f;
+		timeLeft = 8f;
 	}
 	
 	// Update is called once per frame
