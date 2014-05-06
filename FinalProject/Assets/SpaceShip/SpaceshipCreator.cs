@@ -37,15 +37,27 @@ public class SpaceshipCreator : MonoBehaviour {
 		gameOn = true;
 		networkView.RPC ("Initialize", RPCMode.AllBuffered);//the game manager does not have a network view...
 	}
+	[RPC] 
+	void NotifyNameCon(string Pname){
+		print (Pname + " has connected.");
+		}
+	[RPC]
+	void NotifyNameDis(string Pname){
+		print (Pname + " has left the game.");
+		}
 	void OnConnectedToServer() {
 		//Transform tempShip = Network.Instantiate(spaceship, transform.position, transform.rotation, 0) as Transform;
 		name=GetName ();
-		print (name+" has connected.");
+		networkView.RPC ("NotifyNameCon", RPCMode.AllBuffered,name);
 		//Network.Instantiate(spaceship, transform.position, transform.rotation, 0);
 		//Camera.main.transform.parent = tempShip.transform;
 		//tempShip.GetComponent<SpaceCode>().sendName(GetName ());
 	}
+	public void BeforeLeaving(){
+		networkView.RPC ("NotifyNameDis", RPCMode.AllBuffered, name);
+		}
 	void OnDisconnectedFromServer(){
+
 		Application.LoadLevel (0);
 		}
 	// Update is called once per frame

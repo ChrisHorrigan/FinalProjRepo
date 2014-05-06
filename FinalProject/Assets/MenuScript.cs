@@ -58,6 +58,7 @@ public class MenuScript : MonoBehaviour {
 		else if (Network.peerType == NetworkPeerType.Client){
 			GUI.Label(new Rect(10, 10, 300, 20), "Connected as Client");
 			if (GUI.Button(new Rect(10, 30, 120, 20), "Disconnect")){
+				GameObject.Find("GameManager").GetComponent<SpaceshipCreator>().BeforeLeaving();
 				Network.Disconnect(200);
 				Application.LoadLevel(0);
 			}
