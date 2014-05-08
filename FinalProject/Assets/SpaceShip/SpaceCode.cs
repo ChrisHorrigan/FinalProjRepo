@@ -4,6 +4,7 @@ using System.Collections;
 public class SpaceCode : MonoBehaviour {
 
 	public Transform Lazer;
+	public Transform HeatSeeker;
 
 	private float speed;
 	//private float phi;
@@ -186,6 +187,11 @@ public class SpaceCode : MonoBehaviour {
 			temp2.localPosition = this.transform.localPosition + newRight * this.transform.localScale.x / -2f + newUp * this.transform.localScale.y / 2f;
 			temp2.localRotation = this.transform.localRotation;
 			temp2.GetComponent<LazerCode>().setForwardVector(newForward);
+		}
+
+		if (Input.GetKeyDown(KeyCode.U) && networkView.isMine) {
+			Transform tempSeek = (Transform) GameObject.Instantiate(HeatSeeker);
+			tempSeek.localPosition = this.transform.localPosition;
 		}
 
 

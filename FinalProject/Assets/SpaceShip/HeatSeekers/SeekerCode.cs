@@ -3,21 +3,20 @@ using System.Collections;
 
 public class SeekerCode : MonoBehaviour {
 
-	PathFinder pathFinder = new PathFinder();
+	public Transform tempTarget;
+	PathFinder pathFinder;
 	// Use this for initialization
 	void Start () {
-	
+		tempTarget = GameObject.Find("target").transform;
+		pathFinder = new PathFinder(tempTarget, this.transform);
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		updateTargetPos();
+		this.GetComponent<CharacterController>().Move(10f * Time.deltaTime * pathFinder.findPath());
+	}
 	
-	}
-
-	private void updateTargetPos() {
-
-	}
 
 
 }
