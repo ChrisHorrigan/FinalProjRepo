@@ -22,6 +22,7 @@ public class SpaceshipCreator : MonoBehaviour {
 			Network.Instantiate(planet, new Vector3(1000, 0, 0), transform.rotation, 0);
 			Network.Instantiate(flag1, new Vector3(0, 0, 10), transform.rotation, 0);
 		}
+
 	}
 	[RPC]
 	void Initialize(){
