@@ -65,7 +65,9 @@ public class SpaceCode : MonoBehaviour {
 		}
 	public void sendName(string n){
 		networkView.RPC ("setName", RPCMode.AllBuffered, n);
-		}
+	}
+
+
 	// Update is called once per frame
 	void Update () {
 		if (networkView.isMine) {
@@ -190,6 +192,12 @@ public class SpaceCode : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown(KeyCode.U) && networkView.isMine) {
+			RaycastHit hit;
+			Physics.Raycast(this.transform.localPosition, newForward, out hit);
+			if(Physics.Raycast(this.transform.localPosition + (this.transform.localScale.x * newUp), direct, 1000f) && hit.collider.CompareTag("Targetable")) {
+				print("target aquired");
+			}
+
 			Transform tempSeek = (Transform) GameObject.Instantiate(HeatSeeker);
 			tempSeek.localPosition = this.transform.localPosition;
 		}

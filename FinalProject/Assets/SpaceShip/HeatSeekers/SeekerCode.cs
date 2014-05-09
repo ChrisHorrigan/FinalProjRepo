@@ -16,6 +16,11 @@ public class SeekerCode : MonoBehaviour {
 	void Update () {
 		this.GetComponent<CharacterController>().Move(100f * Time.deltaTime * pathFinder.findPath());
 	}
+
+	public void setTarget(Transform newTarget) {
+		tempTaget = newTarget;
+		pathFinder = new PathFinder(tempTarget, this.transform);
+	}
 	
 
 
