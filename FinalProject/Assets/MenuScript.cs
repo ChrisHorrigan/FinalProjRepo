@@ -7,6 +7,7 @@ public class MenuScript : MonoBehaviour {
 	string connectionIP="ip address";
 	string serverIP;
 	public int connectionPort = 25001;
+	public bool tutorial=false;
 	// Use this for initialization
 	void Start () {
 		DontDestroyOnLoad (transform.gameObject);
@@ -45,7 +46,8 @@ public class MenuScript : MonoBehaviour {
 						if (GUI.Button (new Rect (10, 40, 170, 30), "Play Tutorial")) {
 								playClicked = false;
 								Network.InitializeServer(0, connectionPort, false);
-								Application.LoadLevel(1);
+								Application.LoadLevel(2);
+								tutorial=true;
 						}
 						if (GUI.Button (new Rect (10, 70, 170, 30), "Instructions")) {
 								playClicked = false;
@@ -61,6 +63,7 @@ public class MenuScript : MonoBehaviour {
 				GameObject.Find("GameManager").GetComponent<SpaceshipCreator>().BeforeLeaving();
 				Network.Disconnect(200);
 				Application.LoadLevel(0);
+				tutorial=false;
 			}
 		}
 		else{
@@ -70,6 +73,7 @@ public class MenuScript : MonoBehaviour {
 			GUI.Label(new Rect(10, 10, 300, 20), "Server IP:" + serverIP);
 			if (GUI.Button(new Rect(10, 30, 170, 30), quitString)){
 				Network.Disconnect(200);
+				tutorial=false;
 				Application.LoadLevel(0);
 			}
 			//if(Application.loadedLevel==1){

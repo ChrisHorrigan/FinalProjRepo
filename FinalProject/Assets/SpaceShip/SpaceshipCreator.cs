@@ -8,8 +8,12 @@ public class SpaceshipCreator : MonoBehaviour {
 	public Transform flag1;
 	public string name;
 	public static bool gameOn;
+	public PlayerManager thisManager;
+	public MenuScript thisMenu;
 	// Use this for initialization
 	void Start () {
+		thisMenu=GameObject.Find ("MenuManager").GetComponent<MenuScript>();
+		thisManager = GameObject.Find ("GameManager").GetComponent<PlayerManager> ();
 		if(Network.isServer) {
 			gameOn=false;
 
@@ -18,9 +22,12 @@ public class SpaceshipCreator : MonoBehaviour {
 			//Camera.main.transform.parent = tempShip.transform;
 			name=GetName ();
 			print (name+" has connected.");
+			thisManager.AddPlayer(this);
 			//tempShip.GetComponent<SpaceCode>().sendName(GetName ());
-			Network.Instantiate(planet, new Vector3(1000, 0, 0), transform.rotation, 0);
-			Network.Instantiate(flag1, new Vector3(0, 0, 10), transform.rotation, 0);
+			if(!thisMenu.tutorial){
+				Network.Instantiate(planet, new Vector3(1000, 0, 0), transform.rotation, 0);
+				Network.Instantiate(flag1, new Vector3(0, 0, 10), transform.rotation, 0);
+			}
 		}
 
 	}
@@ -46,6 +53,7 @@ public class SpaceshipCreator : MonoBehaviour {
 		//Transform tempShip = Network.Instantiate(spaceship, transform.position, transform.rotation, 0) as Transform;
 		name=GetName ();
 		networkView.RPC ("NotifyNameCon", RPCMode.AllBuffered,name);
+		thisManager.AddPlayer(this);
 		//Network.Instantiate(spaceship, transform.position, transform.rotation, 0);
 		//Camera.main.transform.parent = tempShip.transform;
 		//tempShip.GetComponent<SpaceCode>().sendName(GetName ());
@@ -67,8 +75,8 @@ public class SpaceshipCreator : MonoBehaviour {
 	}
 	string GetName(){
 
-		MenuScript menuInstance=GameObject.Find ("MenuManager").GetComponent<MenuScript>();
-		string name = menuInstance.getName ();
+
+		string name = thisMenu.getName ();
 		return name;
 		}
 	           
