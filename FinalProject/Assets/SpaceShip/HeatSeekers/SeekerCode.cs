@@ -14,7 +14,7 @@ public class SeekerCode : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		this.GetComponent<CharacterController>().Move(10f * Time.deltaTime * pathFinder.findPath());
+		this.GetComponent<CharacterController>().Move(100f * Time.deltaTime * pathFinder.findPath());
 	}
 	
 

@@ -27,9 +27,9 @@ public class PathFinder {
 		Vector3 direct = Vector3.Normalize(target.localPosition - seeker.localPosition);
 		RaycastHit hit;
 		Physics.Raycast(seeker.localPosition, direct, out hit);
-		if(Physics.Raycast(seeker.localPosition, direct, 100f)) {
-			float deflection = Mathf.Atan(1f / hit.distance);
-			float MaxDist = -1f;
+		if(Physics.Raycast(seeker.localPosition, direct, 100f) && !hit.collider.transform.localPosition.Equals(target.localPosition)) {
+			float deflection = Mathf.Atan(10f / hit.distance);
+			float MaxDist = -1f; 
 			Vector3 actualShot = new Vector3(0, 0, 1);
 			Vector3 testShot;
 			for(float tryPhi = 0; tryPhi < 2 * Mathf.PI; tryPhi += Mathf.PI / 6) {
