@@ -193,13 +193,20 @@ public class SpaceCode : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.U) && networkView.isMine) {
 			RaycastHit hit;
-			Physics.Raycast(this.transform.localPosition, newForward, out hit);
-			if(Physics.Raycast(this.transform.localPosition + (this.transform.localScale.x * newUp), newForward, 1000f) && hit.collider.CompareTag("Targetable")) {
-				print("target aquired");
+			Physics.Raycast(this.transform.localPosition + (this.transform.localScale.z / 2 * newUp), newForward, out hit);
+			if(Physics.Raycast(this.transform.localPosition + (this.transform.localScale.z / 2 * newUp), newForward, 1000f)) {
+				if (hit.collider.CompareTag("Targetable")) {
+					print("target aquired");
+					Transform tempSeek = (Transform) GameObject.Instantiate(HeatSeeker);
+					tempSeek.localPosition = this.transform.localPosition;
+					tempSeek.GetComponent<SeekerCode>().setTarget(hit.collider.transform);
+				} else {
+					print("target failed");
+				}
 			}
 
-			Transform tempSeek = (Transform) GameObject.Instantiate(HeatSeeker);
-			tempSeek.localPosition = this.transform.localPosition;
+			//Transform tempSeek = (Transform) GameObject.Instantiate(HeatSeeker);
+			//tempSeek.localPosition = this.transform.localPosition;
 		}
 
 
