@@ -194,7 +194,7 @@ public class SpaceCode : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.U) && networkView.isMine) {
 			RaycastHit hit;
 			Physics.Raycast(this.transform.localPosition, newForward, out hit);
-			if(Physics.Raycast(this.transform.localPosition + (this.transform.localScale.x * newUp), direct, 1000f) && hit.collider.CompareTag("Targetable")) {
+			if(Physics.Raycast(this.transform.localPosition + (this.transform.localScale.x * newUp), newForward, 1000f) && hit.collider.CompareTag("Targetable")) {
 				print("target aquired");
 			}
 

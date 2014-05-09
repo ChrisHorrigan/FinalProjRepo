@@ -18,7 +18,7 @@ public class SeekerCode : MonoBehaviour {
 	}
 
 	public void setTarget(Transform newTarget) {
-		tempTaget = newTarget;
+		tempTarget = newTarget;
 		pathFinder = new PathFinder(tempTarget, this.transform);
 	}
 	
