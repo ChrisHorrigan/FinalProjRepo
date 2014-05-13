@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class LazerCode : MonoBehaviour {
+public class LazerCode : DestructableObject {
 
 	public float timeLeft;
 
@@ -22,5 +22,15 @@ public class LazerCode : MonoBehaviour {
 
 	public void setForwardVector( Vector3 newV) {
 		this.transform.forward = newV;
+	}
+
+	protected override void innitializeHealth() {
+		this.health = 100f;
+	}
+	protected override void damageEffect() {
+		timeLeft -= Random.Range(0f, 3f);
+	}
+	protected override void destructionEffect() {
+		Destroy(this.gameObject);
 	}
 }

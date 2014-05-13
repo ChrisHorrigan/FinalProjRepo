@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AsteroidCode : MonoBehaviour {
+public class AsteroidCode : DestructableObject {
 
 	// Use this for initialization
 	void Start () {
@@ -13,7 +13,13 @@ public class AsteroidCode : MonoBehaviour {
 	
 	}
 
-	void OnTriggerEnter(Collider other) {
+	protected override void innitializeHealth() {
+		this.health = .5f;
+	}
+	protected override void damageEffect() {
 		Destroy(this.gameObject);
+	}
+	protected override void destructionEffect() {
+		
 	}
 }

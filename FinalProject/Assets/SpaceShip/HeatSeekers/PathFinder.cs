@@ -46,6 +46,10 @@ public class PathFinder {
 		}
 	}
 
+	public float getDistance() {
+		return (target.localPosition - seeker.localPosition).magnitude;
+	}
+
 	private Vector3 getAssginedZeroRotationalVector(Vector3 input) {
 		Vector3 output = Vector3.Cross(input, new Vector3(0, 0, 1));
 		if(output.magnitude == 0f) {

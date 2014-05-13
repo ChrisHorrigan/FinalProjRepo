@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SpaceCode : MonoBehaviour {
+public class SpaceCode : DestructableObject {
 
 	public Transform Lazer;
 	public Transform HeatSeeker;
@@ -222,5 +222,15 @@ public class SpaceCode : MonoBehaviour {
 			a += (Mathf.PI * 2f);
 		}
 		return a;
+	}
+
+	protected override void innitializeHealth() {
+		
+	}
+	protected override void damageEffect() {
+		
+	}
+	protected override void destructionEffect() {
+		
 	}
 }

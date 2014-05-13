@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SeekerCode : MonoBehaviour {
+public class SeekerCode : DestructableObject {
 
 	public Transform tempTarget;
 	PathFinder pathFinder;
@@ -17,11 +17,28 @@ public class SeekerCode : MonoBehaviour {
 		if (!pathFinder.Equals(null)) {
 			this.GetComponent<CharacterController>().Move(10f * Time.deltaTime * pathFinder.findPath());
 		}
+		if(pathFinder.getDistance() < 5f) {
+			explode ();
+		}
 	}
 
 	public void setTarget(Transform newTarget) {
 		tempTarget = newTarget;
 		pathFinder = new PathFinder(tempTarget, this.transform);
+	}
+
+	protected override void innitializeHealth() {
+		this.health = 1f;
+	}
+	protected override void damageEffect() {
+
+	}
+	protected override void destructionEffect() {
+		explode();
+	}
+
+	public void explode() {
+		Destroy(this.gameObject);
 	}
 	
 
