@@ -8,6 +8,7 @@ public class MenuScript : MonoBehaviour {
 	string serverIP;
 	public int connectionPort = 25001;
 	public bool tutorial=false;
+	private string quitstring="Shut down server";
 	// Use this for initialization
 	void Start () {
 		DontDestroyOnLoad (transform.gameObject);
@@ -48,6 +49,7 @@ public class MenuScript : MonoBehaviour {
 								Network.InitializeServer(0, connectionPort, false);
 								Application.LoadLevel(2);
 								tutorial=true;
+								quitstring="Back to menu";
 						}
 						if (GUI.Button (new Rect (10, 70, 170, 30), "Instructions")) {
 								playClicked = false;
@@ -67,19 +69,25 @@ public class MenuScript : MonoBehaviour {
 			}
 		}
 		else{
-			string quitString="Shut down server";
+
 			if(Application.loadedLevel==1)
-				quitString="Return to main menu";
+				quitstring="Return to main menu";
 			GUI.Label(new Rect(10, 10, 300, 20), "Server IP:" + serverIP);
-			if (GUI.Button(new Rect(10, 30, 170, 30), quitString)){
+			if (GUI.Button(new Rect(10, 30, 170, 30), "Shut down server")){
 				Network.Disconnect(200);
 				tutorial=false;
 				Application.LoadLevel(0);
 			}
 			//if(Application.loadedLevel==1){
 			if (!SpaceshipCreator.gameOn){//consider variable replacement later
-				if(GUI.Button(new Rect(10, 70, 170, 30), "Start match")){
+				string startText;
+				if(tutorial)
+					startText="Start Tutorial";
+				else
+					startText="Start Match";
+				if(GUI.Button(new Rect(10, 70, 170, 30), "Start")){
 					GameObject.Find("GameManager").GetComponent<SpaceshipCreator>().RoundStart();
+					GameObject.Find ("Tutorial(Clone)").GetComponent<TeachScript>().PressedStart();
 						//!GameObject.Find("GameManager").GetComponent<SpaceshipCreator>().gameOn
 				}
 			}

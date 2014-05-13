@@ -6,6 +6,7 @@ public class SpaceshipCreator : MonoBehaviour {
 	public Transform spaceship;
 	public Transform planet;
 	public Transform flag1;
+	public Transform teacher;
 	public string name;
 	public static bool gameOn;
 	public PlayerManager thisManager;
@@ -24,6 +25,8 @@ public class SpaceshipCreator : MonoBehaviour {
 			print (name+" has connected.");
 			thisManager.AddPlayer(this);
 			//tempShip.GetComponent<SpaceCode>().sendName(GetName ());
+			if(thisMenu.tutorial)
+				Network.Instantiate(teacher,new Vector3(0,0,0),transform.rotation,0);
 			if(!thisMenu.tutorial){
 				Network.Instantiate(planet, new Vector3(1000, 0, 0), transform.rotation, 0);
 				Network.Instantiate(flag1, new Vector3(0, 0, 10), transform.rotation, 0);
