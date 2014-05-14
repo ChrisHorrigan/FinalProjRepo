@@ -4,9 +4,10 @@ using System.Collections;
 public class PlayerManager : MonoBehaviour {
 	public ArrayList team1;
 	public ArrayList team2;
-	private SpaceshipCreator soul;
+	//private SpaceshipCreator soul;
 	// Use this for initialization
 	void Start () {
+
 		team1 = new ArrayList();
 		team2 = new ArrayList ();
 	}
@@ -22,8 +23,8 @@ public class PlayerManager : MonoBehaviour {
 				}
 	}
 	public void AddPlayer (SpaceshipCreator thing){
-		soul = thing;
-		networkView.RPC ("ListUpdate", RPCMode.AllBuffered, soul);
+
+		networkView.RPC ("ListUpdate", RPCMode.AllBuffered, thing);
 		}
 	// Update is called once per frame
 	void Update () {

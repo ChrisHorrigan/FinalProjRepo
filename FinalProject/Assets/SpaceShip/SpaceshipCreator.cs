@@ -11,19 +11,22 @@ public class SpaceshipCreator : MonoBehaviour {
 	public static bool gameOn;
 	public PlayerManager thisManager;
 	public MenuScript thisMenu;
+	public int team1;
+	public int team2;
 	// Use this for initialization
 	void Start () {
 		thisMenu=GameObject.Find ("MenuManager").GetComponent<MenuScript>();
 		thisManager = GameObject.Find ("GameManager").GetComponent<PlayerManager> ();
 		if(Network.isServer) {
 			gameOn=false;
-
+			team1=0;
+			team2=0;
 			//Transform tempShip = Network.Instantiate(spaceship, transform.position, transform.rotation, 0) as Transform;
 			//Network.Instantiate(spaceship, transform.position, transform.rotation, 0);
 			//Camera.main.transform.parent = tempShip.transform;
 			name=GetName ();
 			print (name+" has connected.");
-			thisManager.AddPlayer(this);
+			//thisManager.AddPlayer(this);
 			//tempShip.GetComponent<SpaceCode>().sendName(GetName ());
 			if(thisMenu.tutorial)
 				Network.Instantiate(teacher,new Vector3(0,0,0),transform.rotation,0);
@@ -31,9 +34,23 @@ public class SpaceshipCreator : MonoBehaviour {
 				Network.Instantiate(planet, new Vector3(1000, 0, 0), transform.rotation, 0);
 				Network.Instantiate(flag1, new Vector3(0, 0, 10), transform.rotation, 0);
 			}
+			if(team1<=team2)
+				networkView.RPC ("teamJoin1",RPCMode.AllBuffered);
+			else
+				networkView.RPC ("teamJoin2",RPCMode.AllBuffered);
 		}
 
 	}
+	[RPC] void teamJoin1(){
+		team1++;
+		print (name + " has been added to team 1");
+		print ("The size of team 1 is ");
+		}
+	[RPC] void teamJoin2(){
+		team2++;
+		print (name + " has been added to team 2");
+		print ("The size of team 2 is ");
+		}
 	[RPC]
 	void Initialize(){
 		tempShip = Network.Instantiate(spaceship, transform.position, transform.rotation, 0) as Transform;
@@ -56,7 +73,11 @@ public class SpaceshipCreator : MonoBehaviour {
 		//Transform tempShip = Network.Instantiate(spaceship, transform.position, transform.rotation, 0) as Transform;
 		name=GetName ();
 		networkView.RPC ("NotifyNameCon", RPCMode.AllBuffered,name);
-		thisManager.AddPlayer(this);
+		if(team1<=team2)
+			networkView.RPC ("teamJoin1",RPCMode.AllBuffered);
+		else
+			networkView.RPC ("teamJoin2",RPCMode.AllBuffered);
+		//thisManager.AddPlayer(this);
 		//Network.Instantiate(spaceship, transform.position, transform.rotation, 0);
 		//Camera.main.transform.parent = tempShip.transform;
 		//tempShip.GetComponent<SpaceCode>().sendName(GetName ());
