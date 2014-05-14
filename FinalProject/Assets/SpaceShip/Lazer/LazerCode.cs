@@ -3,11 +3,11 @@ using System.Collections;
 
 public class LazerCode : DestructableObject {
 
-	public float timeLeft;
+	public float timeLeft = 8f;
 
 	// Use this for initialization
 	void Start () {
-		timeLeft = 8f;
+		//timeLeft = 8f;
 	}
 	
 	// Update is called once per frame
@@ -22,6 +22,10 @@ public class LazerCode : DestructableObject {
 
 	public void setForwardVector( Vector3 newV) {
 		this.transform.forward = newV;
+	}
+
+	public void setTimeLeft(float a) {
+		timeLeft = a;
 	}
 
 	protected override void innitializeHealth() {

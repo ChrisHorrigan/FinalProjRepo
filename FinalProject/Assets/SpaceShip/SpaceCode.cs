@@ -197,7 +197,7 @@ public class SpaceCode : DestructableObject {
 			if(Physics.Raycast(this.transform.localPosition + (this.transform.localScale.z / 2 * newUp), newForward, 1000f)) {
 				if (hit.collider.CompareTag("Targetable")) {
 					print("target aquired");
-					Transform tempSeek = (Transform) GameObject.Instantiate(HeatSeeker);
+					Transform tempSeek = (Transform) Network.Instantiate(HeatSeeker);
 					tempSeek.localPosition = this.transform.localPosition;
 					tempSeek.GetComponent<SeekerCode>().setTarget(hit.collider.transform);
 				} else {

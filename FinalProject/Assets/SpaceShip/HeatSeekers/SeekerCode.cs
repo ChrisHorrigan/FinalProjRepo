@@ -38,6 +38,10 @@ public class SeekerCode : DestructableObject {
 	}
 
 	public void explode() {
+
+
+
+
 		Destroy(this.gameObject);
 	}
 	
