@@ -7,7 +7,7 @@ public class LazerCode : DestructableObject {
 
 	// Use this for initialization
 	void Start () {
-		//timeLeft = 8f;
+		timeLeft = 8f;
 	}
 	
 	// Update is called once per frame
