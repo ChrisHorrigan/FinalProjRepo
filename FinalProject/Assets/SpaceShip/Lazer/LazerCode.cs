@@ -3,7 +3,7 @@ using System.Collections;
 
 public class LazerCode : DestructableObject {
 
-	public float timeLeft = 8f;
+	public float timeLeft;
 
 	// Use this for initialization
 	void Start () {

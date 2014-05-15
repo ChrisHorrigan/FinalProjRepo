@@ -163,6 +163,7 @@ public class SpaceCode : DestructableObject {
 
 		newPos = newPos + (speed * newForward);
 		transform.localPosition = newPos;
+		//this.GetComponent<CharacterController>().Move(speed * newForward);
 
 		//transform.Translate(speed * newForward);
 
