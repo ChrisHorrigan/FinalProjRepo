@@ -184,13 +184,13 @@ public class SpaceCode : DestructableObject {
 
 			Transform temp1 = (Transform) Network.Instantiate(Lazer, transform.position, transform.rotation, 0);
 			//Transform temp1 = (Transform) GameObject.Instantiate(Lazer);
-			temp1.localPosition = this.transform.localPosition + newRight * this.transform.localScale.x / 2f + newUp * this.transform.localScale.y / 2f;
+			temp1.localPosition = this.transform.localPosition + newRight * this.transform.localScale.x / 2f + newUp * this.transform.localScale.y / 2f + this.transform.localScale.z * newForward;
 			temp1.localRotation = this.transform.localRotation;
 			temp1.GetComponent<LazerCode>().setForwardVector(newForward);
 
 			Transform temp2 = (Transform) Network.Instantiate(Lazer, transform.position, transform.rotation, 0);
 			//Transform temp2 = (Transform) GameObject.Instantiate(Lazer);
-			temp2.localPosition = this.transform.localPosition + newRight * this.transform.localScale.x / -2f + newUp * this.transform.localScale.y / 2f;
+			temp2.localPosition = this.transform.localPosition + newRight * this.transform.localScale.x / -2f + newUp * this.transform.localScale.y / 2f + this.transform.localScale.z * newForward;
 			temp2.localRotation = this.transform.localRotation;
 			temp2.GetComponent<LazerCode>().setForwardVector(newForward);
 		}
@@ -201,7 +201,7 @@ public class SpaceCode : DestructableObject {
 			if(Physics.Raycast(this.transform.localPosition + (this.transform.localScale.z / 2 * newUp), newForward, 1000f)) {
 				if (hit.collider.CompareTag("Targetable")) {
 					print("target aquired");
-					Transform tempSeek = (Transform) Network.Instantiate(HeatSeeker, transform.position, transform.rotation, 0);
+					Transform tempSeek = (Transform) Network.Instantiate(HeatSeeker, transform.position + this.transform.localScale.z * newForward, transform.rotation, 0);
 					//Transform tempSeek = (Transform) GameObject.Instantiate(HeatSeeker);
 					tempSeek.localPosition = this.transform.localPosition;
 					tempSeek.GetComponent<SeekerCode>().setTarget(hit.collider.transform);

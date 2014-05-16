@@ -19,8 +19,7 @@ public abstract class DestructableObject : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.collider.transform.GetComponent<MonoBehaviour>() is DestructableObject) {
-			health -= Random.Range(.5f, 1.5f);
-			damageEffect();
+			hit();
 		}
 	}
 
@@ -30,6 +29,11 @@ public abstract class DestructableObject : MonoBehaviour {
 
 	public void dealDamage(float dmg) {
 		health -= dmg;
+		damageEffect();
+	}
+
+	public void hit() {
+		health -= Random.Range(.5f, 1.5f);
 		damageEffect();
 	}
 

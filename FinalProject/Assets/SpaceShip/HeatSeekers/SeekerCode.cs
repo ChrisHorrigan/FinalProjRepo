@@ -6,6 +6,9 @@ public class SeekerCode : DestructableObject {
 	public Transform tempTarget;
 	PathFinder pathFinder;
 
+	private float blastRadius = 9f;
+	private int blastDamage = 3;
+
 	private float exploding;
 	// Use this for initialization
 	void Start () {
@@ -22,16 +25,24 @@ public class SeekerCode : DestructableObject {
 			if(exploding >= .45f) {
 				GameObject[] all = GameObject.FindObjectsOfType<GameObject>();
 				foreach (GameObject stepOne in all) {
-
+					if((stepOne.GetComponent<MonoBehaviour>() is DestructableObject) && ((stepOne.transform.localPosition - this.transform.localPosition).magnitude < blastRadius) && !this.Equals(stepOne)) {
+						for(int i = 0; i < blastDamage; i++) {
+							(stepOne.GetComponent<MonoBehaviour>() as DestructableObject).hit();
+						}
+					}
 				}
 				Destroy(this.gameObject);
 			}
 		} else {
-			if (!pathFinder.Equals(null)) {
-				this.GetComponent<CharacterController>().Move(10f * Time.deltaTime * pathFinder.findPath());
-			}
-			if(pathFinder.getDistance() < 5f) {
+			if(tempTarget.Equals(null)) {
 				explode ();
+			} else {
+				if (!pathFinder.Equals(null)) {
+					this.GetComponent<CharacterController>().Move(.1f * Time.deltaTime * pathFinder.findPath());
+				}
+				if(pathFinder.getDistance() < 5f) {
+					explode ();
+				}
 			}
 		}
 	}
