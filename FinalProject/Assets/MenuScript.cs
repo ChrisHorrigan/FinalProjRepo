@@ -87,7 +87,9 @@ public class MenuScript : MonoBehaviour {
 					startText="Start Match";
 				if(GUI.Button(new Rect(10, 70, 170, 30), "Start")){
 					GameObject.Find("GameManager").GetComponent<SpaceshipCreator>().RoundStart();
+					if(tutorial)
 					GameObject.Find ("Tutorial(Clone)").GetComponent<TeachScript>().PressedStart();
+					GameObject.Find ("Spawner").GetComponent<SpawnCode>().SpawnPlayers();
 						//!GameObject.Find("GameManager").GetComponent<SpaceshipCreator>().gameOn
 				}
 			}
