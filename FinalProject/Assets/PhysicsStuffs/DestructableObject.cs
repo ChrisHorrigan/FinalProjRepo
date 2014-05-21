@@ -23,6 +23,14 @@ public abstract class DestructableObject : MonoBehaviour {
 		}
 	}
 
+	void OnControllerColliderHit(ControllerColliderHit hitt) {
+		print ("call1 - " + hitt.gameObject.name);
+		if (hitt.gameObject.transform.GetComponent<MonoBehaviour>() is DestructableObject) {
+			print ("call2");
+			hit();
+		}
+	}
+
 	public float returnHealth() {
 		return health;
 	}
@@ -33,7 +41,7 @@ public abstract class DestructableObject : MonoBehaviour {
 	}
 
 	public void hit() {
-		health -= Random.Range(.5f, 1.5f);
+		health -= Random.Range(0.5f, 1.5f);
 		damageEffect();
 	}
 
