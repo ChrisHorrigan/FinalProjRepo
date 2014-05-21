@@ -8,7 +8,8 @@ public class SpawnCode : MonoBehaviour {
 	public int playerNumber;
 
 	void Start(){
-				DontDestroyOnLoad (transform.gameObject);
+				//DontDestroyOnLoad (transform.gameObject);
+		print ("Velcome");
 		}
 	void OnServerInitialized()
 	{

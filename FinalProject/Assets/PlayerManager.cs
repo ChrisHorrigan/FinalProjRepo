@@ -2,31 +2,57 @@
 using System.Collections;
 
 public class PlayerManager : MonoBehaviour {
-	public ArrayList team1;
-	public ArrayList team2;
+	public ArrayList team1=new ArrayList();
+	public ArrayList team2=new ArrayList();
+	public ArrayList players;
+//	public int team1count;
+//	public int team2count;
 	//private SpaceshipCreator soul;
 	// Use this for initialization
 	void Start () {
+		if (Network.isServer) {
+			string servernum = Network.player.ToString ();
 
-		team1 = new ArrayList();
-		team2 = new ArrayList ();
+			networkView.RPC ("UpdateTeamList", RPCMode.AllBuffered, servernum);
+				}
+
 	}
-	[RPC] 
-	void ListUpdate(SpaceshipCreator toAdd){
-		if (team1.Count > team2.Count) {
-						team2.Add (toAdd);
-			print (toAdd.name+" was added to team 2");
+
+	void OnPlayerConnected(NetworkPlayer player){
+		print ("this ran");
+		networkView.RPC ("UpdateTeamList", RPCMode.AllBuffered, player.ToString());
+	
+		}
+	void OnPlayerDisconnected(NetworkPlayer player){
+		networkView.RPC ("RemoveFromTeams", RPCMode.AllBuffered, player.ToString ());
+		}
+
+
+	[RPC]
+	void UpdateTeamList(string newteammate){
+		if (team1.Count <= team2.Count) {
+						
+						team1.Add (newteammate);
+						print ("Team 1 size: " + team1.Count);
 				} 
 		else {
-			team1.Add (toAdd);
-			print (toAdd.name+" was added to team 1");
-				}
-	}
-	public void AddPlayer (SpaceshipCreator thing){
 
-		networkView.RPC ("ListUpdate", RPCMode.AllBuffered, thing);
+						team2.Add (newteammate);
+			print ("Team 2 size: "+team2.Count);
+				}
 		}
-	// Update is called once per frame
+	[RPC] 
+	void RemoveFromTeams(string leaver){
+		//check team 1:
+		if (team1.IndexOf (leaver) != -1) {
+						team1.RemoveAt (team1.IndexOf (leaver));
+			print ("Team 1 size: "+team1.Count);
+				} 
+		else {
+						team2.RemoveAt (team2.IndexOf (leaver));
+			print ("Team 2 size: "+team2.Count);
+				}
+		}
 	void Update () {
 	
 	}
