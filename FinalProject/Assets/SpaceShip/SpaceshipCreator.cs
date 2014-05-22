@@ -12,12 +12,15 @@ public class SpaceshipCreator : MonoBehaviour {
 	public static bool gameOn;
 	public PlayerManager thisManager;
 	public MenuScript thisMenu;
-
+	public Vector3 team1Spawn = new Vector3 (100, 0,0);
+	public Vector3 team2Spawn = new Vector3 (0, 0,0);
 	public int alignment;
+	public PlayerManager managerOfPlayers;
 	// Use this for initialization
-	PlayerManager managerOfPlayers=GameObject.Find ("PlayerBox(Clone)").GetComponent<PlayerManager> ();
+
 	void Start () {
 
+		alignment = 0;
 		if (Network.isServer) {
 						Network.Instantiate (boxUp, new Vector3 (0, 0, 0), transform.rotation, 0);
 //			GameObject.Instantiate(boxUp,new Vector3 (0, 0, 0), transform.rotation, 0);
@@ -25,7 +28,6 @@ public class SpaceshipCreator : MonoBehaviour {
 		thisMenu=GameObject.Find ("MenuManager").GetComponent<MenuScript>();
 
 		if(Network.isServer) {
-			gameOn=false;
 			//team1=0;
 			//team2=0;
 			//Transform tempShip = Network.Instantiate(spaceship, transform.position, transform.rotation, 0) as Transform;
@@ -46,19 +48,30 @@ public class SpaceshipCreator : MonoBehaviour {
 			}
 //	
 		}
+		//managerOfPlayers=GameObject.Find ("PlayerBox(Clone)").GetComponent<PlayerManager> ();
 
 	}
-
-	[RPC]
+	int getTeam(){
+		if (thisManager.team1.Contains (Network.player.ToString ()))
+						return 1;
+				else
+						return 2;
+		}
+	//[RPC]
 	void Initialize(){
 		thisManager = GameObject.Find ("PlayerBox(Clone)").GetComponent<PlayerManager> ();
-		tempShip = Network.Instantiate(spaceship, transform.position, transform.rotation, 0) as Transform;
+		if(getTeam ()==1)
+			tempShip = Network.Instantiate(spaceship, new Vector3(5,5,5), transform.rotation, 0) as Transform;
+		else if (getTeam()==2)
+			tempShip = Network.Instantiate(spaceship, new Vector3(5,7,11), transform.rotation, 0) as Transform;
 		Camera.main.transform.parent = tempShip.transform;
 		tempShip.GetComponent<SpaceCode>().sendName(GetName ());
+		//print (name + " is on team " + getTeam ());
 		}
 	public void RoundStart(){
 		gameOn = true;
-		networkView.RPC ("Initialize", RPCMode.AllBuffered);//the game manager does not have a network view...
+//		networkView.RPC ("Initialize", RPCMode.AllBuffered);
+		Initialize ();
 	}
 	[RPC] 
 	void NotifyNameCon(string Pname){
@@ -71,7 +84,7 @@ public class SpaceshipCreator : MonoBehaviour {
 	void OnConnectedToServer() {
 		//Transform tempShip = Network.Instantiate(spaceship, transform.position, transform.rotation, 0) as Transform;
 		name=GetName ();
-	//	networkView.RPC ("NotifyNameCon", RPCMode.AllBuffered,name);
+		networkView.RPC ("NotifyNameCon", RPCMode.AllBuffered,name);
 
 //		Network.Instantiate(spaceship, transform.position, transform.rotation, 0);
 //		Camera.main.transform.parent = tempShip.transform;//THIS IS WEIRD
