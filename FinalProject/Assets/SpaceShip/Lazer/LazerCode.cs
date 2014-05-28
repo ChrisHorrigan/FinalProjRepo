@@ -22,7 +22,7 @@ public class LazerCode : DestructableObject {
 
 		RaycastHit hit;
 		Physics.Raycast(this.transform.localPosition, this.transform.forward, out hit);
-		if(Physics.Raycast(this.transform.localPosition, this.transform.forward, this.transform.localScale.z * 5f / 8f)) {
+		if(Physics.Raycast(this.transform.localPosition, this.transform.forward, this.transform.localScale.z)) {
 			print (hit.collider.name);
 			if (hit.collider.transform.GetComponent<MonoBehaviour>() is DestructableObject) {
 				(hit.collider.transform.GetComponent<MonoBehaviour>() as DestructableObject).hit();

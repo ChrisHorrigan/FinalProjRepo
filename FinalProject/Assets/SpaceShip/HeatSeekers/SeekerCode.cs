@@ -55,14 +55,11 @@ public class SeekerCode : DestructableObject {
 
 	protected override void innitializeHealth() {
 		this.health = 1f;
-		print("innit");
 	}
 	protected override void damageEffect() {
-		print("k23 " + this.health);
 
 	}
 	protected override void destructionEffect() {
-		print ("k4444");
 		explode();
 	}
 

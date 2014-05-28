@@ -233,7 +233,7 @@ public class SpaceCode : DestructableObject {
 		
 	}
 	protected override void damageEffect() {
-		
+		newPos = newPos + new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f), Random.Range(-3f, 3f));
 	}
 	protected override void destructionEffect() {
 		

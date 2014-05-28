@@ -22,7 +22,7 @@ public abstract class DestructableObject : MonoBehaviour {
 		if (other.collider.transform.GetComponent<MonoBehaviour>() is DestructableObject) {
 			hit();
 		}
-	} */
+	} 
 
 	void OnControllerColliderHit(ControllerColliderHit hitt) {
 		print ("call1 - " + hitt.gameObject.name);
@@ -30,7 +30,7 @@ public abstract class DestructableObject : MonoBehaviour {
 			print ("call2");
 			hit();
 		}
-	}
+	} */
 
 	public float returnHealth() {
 		return health;
