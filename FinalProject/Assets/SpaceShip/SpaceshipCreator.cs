@@ -64,6 +64,7 @@ public class SpaceshipCreator : MonoBehaviour {
 			tempShip = Network.Instantiate(spaceship, new Vector3(5,5,5), transform.rotation, 0) as Transform;
 		else if (getTeam()==2)
 			tempShip = Network.Instantiate(spaceship, new Vector3(5,7,11), transform.rotation, 0) as Transform;
+		Camera.main.transform.localPosition = tempShip.transform.localPosition + Camera.main.transform.localPosition;
 		Camera.main.transform.parent = tempShip.transform;
 		tempShip.GetComponent<SpaceCode>().sendName(GetName ());
 		//print (name + " is on team " + getTeam ());
