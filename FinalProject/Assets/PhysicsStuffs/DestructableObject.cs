@@ -7,21 +7,22 @@ public abstract class DestructableObject : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		health = 1f;
-		this.innitializeHealth();
+		innitializeHealth();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if (health <= 0f) {
-			destructionEffect();
+	public virtual void Update () {
+		if(health <= 0f) {
+			//destructionEffect();
 		}
 	}
 
+	/*
 	void OnTriggerEnter(Collider other) {
 		if (other.collider.transform.GetComponent<MonoBehaviour>() is DestructableObject) {
 			hit();
 		}
-	}
+	} */
 
 	void OnControllerColliderHit(ControllerColliderHit hitt) {
 		print ("call1 - " + hitt.gameObject.name);
@@ -44,6 +45,7 @@ public abstract class DestructableObject : MonoBehaviour {
 		health -= Random.Range(0.5f, 1.5f);
 		damageEffect();
 	}
+
 
 	protected abstract void innitializeHealth();
 	protected abstract void damageEffect();

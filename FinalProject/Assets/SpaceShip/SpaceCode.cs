@@ -50,7 +50,7 @@ public class SpaceCode : DestructableObject {
 		newRight = new Vector3(1f, 0f, 0f);
 		newUp = new Vector3(0f, 1f, 0f);
 
-		newPos = new Vector3(0f, 0f, 0f);
+		newPos = transform.localPosition;
 	}
 	void OnGUI() {
 		// Place the name plate where the gameObject (player prefab) is
@@ -69,7 +69,7 @@ public class SpaceCode : DestructableObject {
 
 
 	// Update is called once per frame
-	void Update () {
+	public override void Update () {
 		if (networkView.isMine) {
 			if (Input.GetKey(KeyCode.I)) {
 				speed += 3f * Time.deltaTime;
@@ -182,15 +182,15 @@ public class SpaceCode : DestructableObject {
 
 		if (Input.GetKeyDown(KeyCode.Space) && networkView.isMine) {
 
-			Transform temp1 = (Transform) Network.Instantiate(Lazer, transform.position, transform.rotation, 0);
+			Transform temp1 = (Transform) Network.Instantiate(Lazer, this.transform.localPosition - newRight * this.transform.localScale.x / -2f + newUp * this.transform.localScale.y / 2f + (this.transform.localScale.z + Lazer.transform.localScale.z + 0.05f) * newForward, transform.rotation, 0);
 			//Transform temp1 = (Transform) GameObject.Instantiate(Lazer);
-			temp1.localPosition = this.transform.localPosition + newRight * this.transform.localScale.x / 2f + newUp * this.transform.localScale.y / 2f + this.transform.localScale.z * newForward;
+			//temp1.localPosition = this.transform.localPosition + newRight * this.transform.localScale.x / 2f + newUp * this.transform.localScale.y / 2f + (this.transform.localScale.z / 2f + Lazer.transform.localScale.z / 2f + 0.005f) * newForward;
 			temp1.localRotation = this.transform.localRotation;
 			temp1.GetComponent<LazerCode>().setForwardVector(newForward);
 
-			Transform temp2 = (Transform) Network.Instantiate(Lazer, transform.position, transform.rotation, 0);
-			//Transform temp2 = (Transform) GameObject.Instantiate(Lazer);
-			temp2.localPosition = this.transform.localPosition + newRight * this.transform.localScale.x / -2f + newUp * this.transform.localScale.y / 2f + this.transform.localScale.z * newForward;
+			Transform temp2 = (Transform) Network.Instantiate(Lazer, this.transform.localPosition + newRight * this.transform.localScale.x / -2f + newUp * this.transform.localScale.y / 2f + (this.transform.localScale.z + Lazer.transform.localScale.z + 0.05f) * newForward, transform.rotation, 0);
+			//Transform temp2 = (Transform) GameObject.Instantiate(Lazer)
+			//temp2.localPosition = ;
 			temp2.localRotation = this.transform.localRotation;
 			temp2.GetComponent<LazerCode>().setForwardVector(newForward);
 		}
@@ -216,7 +216,7 @@ public class SpaceCode : DestructableObject {
 
 
 
-
+		base.Update();
 	}
 
 	private float reduceAngle(float a) {

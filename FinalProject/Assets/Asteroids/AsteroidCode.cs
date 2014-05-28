@@ -9,8 +9,9 @@ public class AsteroidCode : DestructableObject {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	public virtual void Update () {
+
+		base.Update();
 	}
 
 	protected override void innitializeHealth() {

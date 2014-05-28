@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class SeekerCode : DestructableObject {
@@ -9,17 +9,17 @@ public class SeekerCode : DestructableObject {
 	private float blastRadius = 9f;
 	private int blastDamage = 3;
 
-	private float exploding;
+	private float exploding = -1f;
 	// Use this for initialization
-	void Start () {
-		exploding = -1f;
+	//void Start () {
+		//exploding = -1f;
 		//tempTarget = GameObject.Find("target").transform;
 		//pathFinder = new PathFinder(tempTarget, this.transform);
 
-	}
+	//}
 	
 	// Update is called once per frame
-	void Update () {
+	public override void Update () {
 		if(exploding >= 0f) {
 			exploding += Time.deltaTime;
 			if(exploding >= .45f) {
@@ -45,6 +45,7 @@ public class SeekerCode : DestructableObject {
 				}
 			}
 		}
+		base.Update();
 	}
 
 	public void setTarget(Transform newTarget) {
@@ -54,13 +55,14 @@ public class SeekerCode : DestructableObject {
 
 	protected override void innitializeHealth() {
 		this.health = 1f;
-		print ("uisds");
+		print("innit");
 	}
 	protected override void damageEffect() {
-		print ("kvojfhsidgaj");
+		print("k23 " + this.health);
 
 	}
 	protected override void destructionEffect() {
+		print ("k4444");
 		explode();
 	}
 

@@ -11,13 +11,25 @@ public class LazerCode : DestructableObject {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	public virtual void Update () {
 		this.GetComponent<CharacterController>().Move(100f * Time.deltaTime * this.transform.forward);
+		//transform.Translate(100f * Time.deltaTime * this.transform.forward);
 
 		timeLeft -= Time.deltaTime;
 		if(timeLeft < 0f) {
 			Destroy(this.gameObject);
 		}
+
+		RaycastHit hit;
+		Physics.Raycast(this.transform.localPosition, this.transform.forward, out hit);
+		if(Physics.Raycast(this.transform.localPosition, this.transform.forward, this.transform.localScale.z * 5f / 8f)) {
+			print (hit.collider.name);
+			if (hit.collider.transform.GetComponent<MonoBehaviour>() is DestructableObject) {
+				(hit.collider.transform.GetComponent<MonoBehaviour>() as DestructableObject).hit();
+				this.hit();
+			}
+		}
+		base.Update();
 	}
 
 	public void setForwardVector( Vector3 newV) {
