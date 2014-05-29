@@ -193,7 +193,7 @@ public class SpaceCode : DestructableObject {
 			//temp2.localPosition = ;
 			temp2.localRotation = this.transform.localRotation;
 			temp2.GetComponent<LazerCode>().setForwardVector(newForward);
-			shotRay ();
+			StartCoroutine("shotRay");
 		}
 
 		if (Input.GetKeyDown(KeyCode.U) && networkView.isMine) {
@@ -239,11 +239,27 @@ public class SpaceCode : DestructableObject {
 	protected override void destructionEffect() {
 		
 	}
-	private void shotRay(){
+	public IEnumerator shotRay(){
 		//Ray ray = new Ray (Camera.main.transform.position, Camera.main.transform.forward);
 		RaycastHit hit;
+		GameObject target;
+		Transform firePos;
 		if (Physics.Raycast (Camera.main.transform.position, Camera.main.transform.forward, out hit, 500)) {
 			print ("Hit: " + hit.collider.gameObject.name);
+			target = hit.collider.gameObject;
+			firePos = Camera.main.transform;
+			yield return new WaitForSeconds(1f);
+			if (Physics.Raycast (firePos.position, Camera.main.transform.forward, out hit, 500)) {
+				if(target.Equals(hit.collider.gameObject)){
+					print ("Still in target, now destroy");
+				}
+				else{
+					print ("another target, missed!");
+				}
+			}
+			else{
+				print ("target moved, missed!");
+			}
 		}
 	}
 }
