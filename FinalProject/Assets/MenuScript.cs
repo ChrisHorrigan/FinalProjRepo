@@ -9,14 +9,20 @@ public class MenuScript : MonoBehaviour {
 	public int connectionPort = 25001;
 	public bool tutorial=false;
 	private string quitstring="Shut down server";
+	PlayerManager scoreKeeper;
+	string string1;
+	string string2;
 	// Use this for initialization
 	void Start () {
+
 		DontDestroyOnLoad (transform.gameObject);
 		string host = Dns.GetHostName();
 		IPHostEntry ip = Dns.GetHostEntry(host);	//grabs all the ip entries for this computer
 		serverIP = ip.AddressList[0].ToString();
 	}
 	void OnGUI(){
+		Rect scoreboard1=new Rect(30,30,300,300);
+		Rect scoreboard2 = new Rect (340, 30, 300, 300);
 		if (Network.peerType == NetworkPeerType.Disconnected) {
 						if (GUI.Button (new Rect (10, 10, 170, 30), "Play Online") && !playClicked)
 								playClicked = true;
@@ -77,6 +83,8 @@ public class MenuScript : MonoBehaviour {
 				Network.Disconnect(200);
 				tutorial=false;
 				Application.LoadLevel(0);
+				SpaceshipCreator.gameOn=false;
+
 			}
 			//if(Application.loadedLevel==1){
 			if (!SpaceshipCreator.gameOn){//consider variable replacement later
@@ -92,9 +100,26 @@ public class MenuScript : MonoBehaviour {
 					//GameObject.Find ("Spawner").GetComponent<SpawnCode>().SpawnPlayers();
 						//!GameObject.Find("GameManager").GetComponent<SpaceshipCreator>().gameOn
 				}
+
 			}
 			//}
 		}
+		if ((!SpaceshipCreator.gameOn && Network.peerType != NetworkPeerType.Disconnected)) {
+
+						GUI.Box (scoreboard1, string1);
+						GUI.Box (scoreboard2, string2);
+				}
+		}
+	void OnConnectedToServer(){
+		scoreKeeper = GameObject.Find ("PlayerBox(Clone)").GetComponent<PlayerManager> ();
+
+		}
+	public void UpdateTeamLists(){
+		string1 = scoreKeeper.team1.ToString ();
+		string2 = scoreKeeper.team2.ToString ();
+		}
+	void OnServerInitialized(){
+		scoreKeeper = GameObject.Find ("PlayerBox(Clone)").GetComponent<PlayerManager> ();
 		}
 	public string getName(){
 		return playerName;

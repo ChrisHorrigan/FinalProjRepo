@@ -9,7 +9,9 @@ public class PlayerManager : MonoBehaviour {
 //	public int team2count;
 	//private SpaceshipCreator soul;
 	// Use this for initialization
+	MenuScript soul;
 	void Start () {
+		soul = GameObject.Find ("MenuManager").GetComponent<MenuScript> ();
 		if (Network.isServer) {
 			string servernum = Network.player.ToString ();
 
@@ -40,6 +42,7 @@ public class PlayerManager : MonoBehaviour {
 						team2.Add (newteammate);
 			print ("Team 2 size: "+team2.Count);
 				}
+		soul.UpdateTeamLists ();
 		}
 	[RPC] 
 	void RemoveFromTeams(string leaver){
@@ -52,6 +55,7 @@ public class PlayerManager : MonoBehaviour {
 						team2.RemoveAt (team2.IndexOf (leaver));
 			print ("Team 2 size: "+team2.Count);
 				}
+		soul.UpdateTeamLists ();
 		}
 	void Update () {
 	

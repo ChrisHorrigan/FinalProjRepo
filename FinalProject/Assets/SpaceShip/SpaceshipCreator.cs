@@ -57,12 +57,13 @@ public class SpaceshipCreator : MonoBehaviour {
 				else
 						return 2;
 		}
-	//[RPC]
+	[RPC]
 	void Initialize(){
+		gameOn = true;
 		thisManager = GameObject.Find ("PlayerBox(Clone)").GetComponent<PlayerManager> ();
 		if(getTeam ()==1)
 			tempShip = Network.Instantiate(spaceship, new Vector3(5,5,5), transform.rotation, 0) as Transform;
-		else if (getTeam()==2)
+		else 
 			tempShip = Network.Instantiate(spaceship, new Vector3(5,7,11), transform.rotation, 0) as Transform;
 		Camera.main.transform.localPosition = tempShip.transform.localPosition + Camera.main.transform.localPosition;
 		Camera.main.transform.parent = tempShip.transform;
@@ -70,9 +71,9 @@ public class SpaceshipCreator : MonoBehaviour {
 		//print (name + " is on team " + getTeam ());
 		}
 	public void RoundStart(){
-		gameOn = true;
-//		networkView.RPC ("Initialize", RPCMode.AllBuffered);
-		Initialize ();
+		//gameOn = true;
+		networkView.RPC ("Initialize", RPCMode.AllBuffered);
+		//Initialize ();
 	}
 	[RPC] 
 	void NotifyNameCon(string Pname){
