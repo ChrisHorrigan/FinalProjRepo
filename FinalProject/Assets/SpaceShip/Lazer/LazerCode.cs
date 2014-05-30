@@ -2,17 +2,18 @@ using UnityEngine;
 using System.Collections;
 
 public class LazerCode : DestructableObject {
-
-	public float timeLeft;
+	private float speed = 400f;
+	private float timeLeft = 1f;
+	private CharacterController controller;
 
 	// Use this for initialization
 	void Start () {
-		timeLeft = 8f;
+		controller = gameObject.GetComponent<CharacterController> ();
 	}
 	
 	// Update is called once per frame
 	public virtual void Update () {
-		this.GetComponent<CharacterController>().Move(100f * Time.deltaTime * this.transform.forward);
+		controller.Move(speed * Time.deltaTime * Camera.main.transform.forward);
 		//transform.Translate(100f * Time.deltaTime * this.transform.forward);
 
 		timeLeft -= Time.deltaTime;
@@ -20,7 +21,7 @@ public class LazerCode : DestructableObject {
 			Destroy(this.gameObject);
 		}
 
-		RaycastHit hit;
+		/*RaycastHit hit;
 		Physics.Raycast(this.transform.localPosition, this.transform.forward, out hit);
 		if(Physics.Raycast(this.transform.localPosition, this.transform.forward, this.transform.localScale.z)) {
 			print (hit.collider.name);
@@ -28,7 +29,7 @@ public class LazerCode : DestructableObject {
 				(hit.collider.transform.GetComponent<MonoBehaviour>() as DestructableObject).hit();
 				this.hit();
 			}
-		}
+		}*/
 		base.Update();
 	}
 

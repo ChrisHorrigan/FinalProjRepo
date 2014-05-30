@@ -6,7 +6,10 @@ public class SpaceCode : DestructableObject {
 	public Transform Lazer;
 	public Transform HeatSeeker;
 
+	private float lazerPower = 1f;
 	private float speed;
+	private float fireRate = .25f;
+	private float lastShot = 0;
 	//private float phi;
 	//private float theta;
 
@@ -180,8 +183,8 @@ public class SpaceCode : DestructableObject {
 
 		}
 
-		if (Input.GetKeyDown(KeyCode.Space) && networkView.isMine) {
-
+		if (Input.GetKey(KeyCode.Space) && networkView.isMine && Time.time - lastShot > fireRate) {
+			lastShot = Time.time;
 			Transform temp1 = (Transform) Network.Instantiate(Lazer, this.transform.localPosition - newRight * this.transform.localScale.x / -2f + newUp * this.transform.localScale.y / 2f + (this.transform.localScale.z + Lazer.transform.localScale.z + 0.05f) * newForward, transform.rotation, 0);
 			//Transform temp1 = (Transform) GameObject.Instantiate(Lazer);
 			//temp1.localPosition = this.transform.localPosition + newRight * this.transform.localScale.x / 2f + newUp * this.transform.localScale.y / 2f + (this.transform.localScale.z / 2f + Lazer.transform.localScale.z / 2f + 0.005f) * newForward;
@@ -193,7 +196,7 @@ public class SpaceCode : DestructableObject {
 			//temp2.localPosition = ;
 			temp2.localRotation = this.transform.localRotation;
 			temp2.GetComponent<LazerCode>().setForwardVector(newForward);
-			StartCoroutine("shotRay");
+			shotRay();
 		}
 
 		if (Input.GetKeyDown(KeyCode.U) && networkView.isMine) {
@@ -239,26 +242,14 @@ public class SpaceCode : DestructableObject {
 	protected override void destructionEffect() {
 		
 	}
-	public IEnumerator shotRay(){
+	public void shotRay(){
 		//Ray ray = new Ray (Camera.main.transform.position, Camera.main.transform.forward);
 		RaycastHit hit;
-		GameObject target;
-		Transform firePos;
 		if (Physics.Raycast (Camera.main.transform.position, Camera.main.transform.forward, out hit, 500)) {
 			print ("Hit: " + hit.collider.gameObject.name);
-			target = hit.collider.gameObject;
-			firePos = Camera.main.transform;
-			yield return new WaitForSeconds(1f);
-			if (Physics.Raycast (firePos.position, Camera.main.transform.forward, out hit, 500)) {
-				if(target.Equals(hit.collider.gameObject)){
-					print ("Still in target, now destroy");
-				}
-				else{
-					print ("another target, missed!");
-				}
-			}
-			else{
-				print ("target moved, missed!");
+			DestructableObject hitScript = hit.collider.gameObject.GetComponent<DestructableObject>();
+			if(hitScript != null){
+				hitScript.dealDamage(lazerPower);
 			}
 		}
 	}
