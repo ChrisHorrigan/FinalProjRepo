@@ -6,10 +6,13 @@ public class SpaceCode : DestructableObject {
 	public Transform Lazer;
 	public Transform HeatSeeker;
 
-	private float lazerPower = 1f;
+
+	private int lazerPower = 5;
 	private float speed;
 	private float fireRate = .25f;
 	private float lastShot = 0;
+	private int startHealth = 50;
+	private Vector3 spawnPoint;
 	//private float phi;
 	//private float theta;
 
@@ -32,7 +35,8 @@ public class SpaceCode : DestructableObject {
 	private Vector3 newPos;
 	// Use this for initialization
 	void Start () {
-
+		spawnPoint = transform.position;
+		health = startHealth;
 
 
 		speed = 0;
@@ -237,7 +241,11 @@ public class SpaceCode : DestructableObject {
 		
 	}
 	protected override void damageEffect() {
-		newPos = newPos + new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+		if (health <= 0) {
+			print ("You have died, respawning!");
+			spaceShipRestart();
+		}
+		//newPos = newPos + new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f), Random.Range(-3f, 3f));
 	}
 	protected override void destructionEffect() {
 		
@@ -252,5 +260,9 @@ public class SpaceCode : DestructableObject {
 				hitScript.dealDamage(lazerPower);
 			}
 		}
+	}
+	public void spaceShipRestart(){
+		health = startHealth;
+		transform.position = spawnPoint;
 	}
 }

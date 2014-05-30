@@ -3,10 +3,10 @@ using System.Collections;
 
 public abstract class DestructableObject : MonoBehaviour {
 
-	protected float health;
+	protected int health;
 	// Use this for initialization
 	void Start () {
-		health = 1f;
+		health = 1;
 		innitializeHealth();
 	}
 	
@@ -36,13 +36,13 @@ public abstract class DestructableObject : MonoBehaviour {
 		return health;
 	}
 
-	public void dealDamage(float dmg) {
+	public void dealDamage(int dmg) {
 		health -= dmg;
 		damageEffect();
 	}
 
 	public void hit() {
-		health -= Random.Range(0.5f, 1.5f);
+		health -= Random.Range(1, 3);
 		damageEffect();
 	}
 

@@ -5,7 +5,7 @@ public class AsteroidCode : DestructableObject {
 
 	// Use this for initialization
 	void Start () {
-	
+		health = 1;
 	}
 	
 	// Update is called once per frame
@@ -15,7 +15,7 @@ public class AsteroidCode : DestructableObject {
 	}
 
 	protected override void innitializeHealth() {
-		this.health = .5f;
+
 	}
 	protected override void damageEffect() {
 		Destroy(this.gameObject);

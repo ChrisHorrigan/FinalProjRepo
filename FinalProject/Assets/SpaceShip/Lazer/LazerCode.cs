@@ -42,7 +42,7 @@ public class LazerCode : DestructableObject {
 	}
 
 	protected override void innitializeHealth() {
-		this.health = 100f;
+		this.health = 100;
 	}
 	protected override void damageEffect() {
 		timeLeft -= Random.Range(0f, 3f);
