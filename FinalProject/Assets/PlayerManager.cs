@@ -14,7 +14,7 @@ public class PlayerManager : MonoBehaviour {
 		soul = GameObject.Find ("MenuManager").GetComponent<MenuScript> ();
 		if (Network.isServer) {
 			string servernum = Network.player.ToString ();
-
+			soul.scoreKeeper=this;
 			networkView.RPC ("UpdateTeamList", RPCMode.AllBuffered, servernum);
 				}
 
@@ -42,7 +42,7 @@ public class PlayerManager : MonoBehaviour {
 						team2.Add (newteammate);
 			print ("Team 2 size: "+team2.Count);
 				}
-		soul.UpdateTeamLists ();
+		//soul.UpdateTeamLists ();
 		}
 	[RPC] 
 	void RemoveFromTeams(string leaver){
@@ -55,7 +55,7 @@ public class PlayerManager : MonoBehaviour {
 						team2.RemoveAt (team2.IndexOf (leaver));
 			print ("Team 2 size: "+team2.Count);
 				}
-		soul.UpdateTeamLists ();
+		//soul.UpdateTeamLists ();
 		}
 	void Update () {
 	

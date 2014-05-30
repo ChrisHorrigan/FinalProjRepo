@@ -19,13 +19,14 @@ public class SpaceshipCreator : MonoBehaviour {
 	// Use this for initialization
 
 	void Start () {
-
+		thisMenu=GameObject.Find ("MenuManager").GetComponent<MenuScript>();
 		alignment = 0;
 		if (Network.isServer) {
 						Network.Instantiate (boxUp, new Vector3 (0, 0, 0), transform.rotation, 0);
+			//thisMenu.scoreKeeper=boxUp.GetComponent<PlayerManager>();
 //			GameObject.Instantiate(boxUp,new Vector3 (0, 0, 0), transform.rotation, 0);
 				}
-		thisMenu=GameObject.Find ("MenuManager").GetComponent<MenuScript>();
+
 
 		if(Network.isServer) {
 			//team1=0;

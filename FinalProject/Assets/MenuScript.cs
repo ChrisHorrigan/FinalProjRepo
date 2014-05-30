@@ -9,9 +9,9 @@ public class MenuScript : MonoBehaviour {
 	public int connectionPort = 25001;
 	public bool tutorial=false;
 	private string quitstring="Shut down server";
-	PlayerManager scoreKeeper;
-	string string1;
-	string string2;
+	public PlayerManager scoreKeeper;
+	string string1="";
+	string string2="";
 	// Use this for initialization
 	void Start () {
 
@@ -104,22 +104,32 @@ public class MenuScript : MonoBehaviour {
 			}
 			//}
 		}
-		if ((!SpaceshipCreator.gameOn && Network.peerType != NetworkPeerType.Disconnected)) {
+//		if ((!SpaceshipCreator.gameOn && Network.peerType != NetworkPeerType.Disconnected)) {
+//
+//						GUI.Box (scoreboard1, string1);
+//						GUI.Box (scoreboard2, string2);
+//				}
+		}
+//	void OnConnectedToServer(){
+//		scoreKeeper = GameObject.Find ("PlayerBox(Clone)").GetComponent<PlayerManager> ();
+//
+//		}
+//	public void UpdateTeamLists(){
+//		string1 = "";
+//		string2 = "";
+//		print ("UpdateTeamLists did run");
+//		foreach (string bob in scoreKeeper.team1) {
+//			string1+=bob+"\n";
+//				}
+//
+//		print (string1);
+//		foreach (string bo in scoreKeeper.team2) {
+//			string2+=bo+"\n";
+//		}
+//		}
 
-						GUI.Box (scoreboard1, string1);
-						GUI.Box (scoreboard2, string2);
-				}
-		}
-	void OnConnectedToServer(){
-		scoreKeeper = GameObject.Find ("PlayerBox(Clone)").GetComponent<PlayerManager> ();
-
-		}
-	public void UpdateTeamLists(){
-		string1 = scoreKeeper.team1.ToString ();
-		string2 = scoreKeeper.team2.ToString ();
-		}
 	void OnServerInitialized(){
-		scoreKeeper = GameObject.Find ("PlayerBox(Clone)").GetComponent<PlayerManager> ();
+		//scoreKeeper = GameObject.Find ("PlayerBox(Clone)").GetComponent<PlayerManager> ();
 		}
 	public string getName(){
 		return playerName;
