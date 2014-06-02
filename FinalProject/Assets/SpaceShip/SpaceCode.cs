@@ -241,10 +241,7 @@ public class SpaceCode : DestructableObject {
 		
 	}
 	protected override void damageEffect() {
-		if (health <= 0) {
-			print ("You have died, respawning!");
-			spaceShipRestart();
-		}
+		networkView.RPC ("updateHealth", RPCMode.AllBuffered);
 		//newPos = newPos + new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f), Random.Range(-3f, 3f));
 	}
 	protected override void destructionEffect() {
@@ -259,6 +256,13 @@ public class SpaceCode : DestructableObject {
 			if(hitScript != null){
 				hitScript.dealDamage(lazerPower);
 			}
+		}
+	}
+	[RPC]
+	public void updateHealth(){
+		if (health <= 0) {
+			print ("You have died, respawning!");
+			spaceShipRestart();
 		}
 	}
 	public void spaceShipRestart(){
