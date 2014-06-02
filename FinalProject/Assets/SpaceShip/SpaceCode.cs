@@ -262,11 +262,8 @@ public class SpaceCode : DestructableObject {
 	public void updateHealth(){
 		if (health <= 0) {
 			print ("You have died, respawning!");
-			spaceShipRestart();
+			health = startHealth;
+			transform.position = spawnPoint;
 		}
-	}
-	public void spaceShipRestart(){
-		health = startHealth;
-		transform.position = spawnPoint;
 	}
 }
