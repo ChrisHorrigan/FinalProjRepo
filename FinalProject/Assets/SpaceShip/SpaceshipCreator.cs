@@ -12,7 +12,7 @@ public class SpaceshipCreator : MonoBehaviour {
 	public static bool gameOn;
 	public PlayerManager thisManager;
 	public MenuScript thisMenu;
-	public Vector3 team1Spawn = new Vector3 (100, 0,0);
+	public Vector3 team1Spawn = new Vector3 (0, 0,0);
 	public Vector3 team2Spawn = new Vector3 (0, 0,0);
 	public int alignment;
 	public PlayerManager managerOfPlayers;
@@ -61,11 +61,11 @@ public class SpaceshipCreator : MonoBehaviour {
 	[RPC]
 	void Initialize(){
 		gameOn = true;
-		thisManager = GameObject.Find ("PlayerBox(Clone)").GetComponent<PlayerManager> ();
+		thisManager = GameObject.Find ("PlayerBox(Clone)").GetComponent<PlayerManager> ();//this might have to move
 		if(getTeam ()==1)
-			tempShip = Network.Instantiate(spaceship, new Vector3(5,5,5), transform.rotation, 0) as Transform;
+			tempShip = Network.Instantiate(spaceship, team1Spawn, transform.rotation, 0) as Transform;
 		else 
-			tempShip = Network.Instantiate(spaceship, new Vector3(5,7,11), transform.rotation, 0) as Transform;
+			tempShip = Network.Instantiate(spaceship, team2Spawn, transform.rotation, 0) as Transform;
 		Camera.main.transform.localPosition = tempShip.transform.localPosition + Camera.main.transform.localPosition;
 		Camera.main.transform.parent = tempShip.transform;
 		tempShip.GetComponent<SpaceCode>().sendName(GetName ());
